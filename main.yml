@@ -5,6 +5,8 @@
   gather_facts: false
   tags:
     - database_servers
+  roles:
+    - postgresql
 
 - name: Deploy, configure, and populate flask repo and virtualenv
   hosts: app_servers
@@ -13,6 +15,8 @@
   tags:
     - application_servers
     - flask
+  roles:
+    - flask
 
 - name: Deploy haproxy load balancer
   hosts: load_balancers
@@ -20,6 +24,8 @@
   become: true
   tags:
     - load_balancers
+  roles:
+    - haproxy
 
 - name: End to end smoke tests
   hosts: app_servers:database_servers
